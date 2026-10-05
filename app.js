@@ -3,6 +3,16 @@
  */
 'use strict';
 
+// SUPABASE
+const supabaseUrl = 'https://kfdaakvjkxphomforvft.supabase.co/rest/v1/';
+ 
+const supabaseKey = 'sb_publishable_Hz1j4amAYKS3H3Vq53ixZQ_L118RzD_';
+ 
+const supabaseClient = supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
 const APP_VERSION = '1.2.1';
 const APP_TABLES = ['communities','users','roles','members','households','announcements','events','eventParticipants','incidents','complaints','volunteers','meetings','documents','income','expenses','payments','receivedPayments','notifications','audit','settings','syncLog'];
 const FINANCE_TABLES = ['income','expenses','payments','receivedPayments'];
