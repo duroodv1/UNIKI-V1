@@ -43,6 +43,7 @@ async function uploadFile() {
   } else {
     alert('SUCCESS: ' + JSON.stringify(data));
     }
+  }
   
   } // tutup fungsi uploadFile
 
