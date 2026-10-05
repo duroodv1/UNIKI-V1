@@ -33,11 +33,15 @@ async function uploadFile() {
       .upload(fileName, file);
 
   console.log('UPLOAD DATA:', data);
-  console.log('UPLOAD ERROR:', error);
+console.error('UPLOAD ERROR:', error);
 
-  if (!error) {
-    alert('Upload berjaya');
-  }
+alert(
+  JSON.stringify(
+    { data, error },
+    null,
+    2
+  )
+);
 }
  
 // testSupabase();
