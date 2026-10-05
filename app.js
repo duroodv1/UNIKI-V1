@@ -15,6 +15,14 @@ const supabaseClient = supabase.createClient(
 );
 
 console.log('Supabase Connected');
+async function testSupabase() {
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .select('*');
+
+  console.log('DATA:', data);*  console.log('ERROR:', error);
+}
+*testSupabase();
 
 
 const APP_VERSION = '1.2.1';
