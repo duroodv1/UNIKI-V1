@@ -4,7 +4,7 @@
 'use strict';
 
 // SUPABASE
-const supabaseUrl = 'https://kfdaakvjkxphomforvft.supabase.co/rest/v1/';
+const supabaseUrl = 'https://kfdaakvjkxphomforvft.supabase.co';
  
 const supabaseKey = 'sb_publishable_Hz1j4amAYKS3H3Vq53ixZQ_L118RzD_';
  
