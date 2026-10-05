@@ -20,9 +20,10 @@ async function testSupabase() {
     .from('profiles')
     .select('*');
 
-  console.log('DATA:', data);*  console.log('ERROR:', error);
+  console.log('DATA:', data);
+c*nsole.log('ERROR:', error);
 }
-*testSupabase();
+testSupabase();
 
 
 const APP_VERSION = '1.2.1';
