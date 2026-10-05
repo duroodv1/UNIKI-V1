@@ -15,6 +15,30 @@ supabaseKey
 );
  
 console.log('Supabase Connected');
+async function uploadFile() {
+  const file =
+    document.getElementById('fileInput').files[0];
+
+  if (!file) {
+    alert('Pilih fail dahulu');
+    return;
+  }
+
+  const fileName =
+    `${Date.now()}-${file.name}`;
+
+  const { data, error } =
+    await supabaseClient.storage
+      .from('uploads')
+      .upload(fileName, file);
+
+  console.log('UPLOAD DATA:', data);
+  console.log('UPLOAD ERROR:', error);
+
+  if (!error) {
+    alert('Upload berjaya');
+  }
+}
  
 // testSupabase();
 // tambahTestUser();
