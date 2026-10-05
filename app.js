@@ -23,7 +23,7 @@ async function testSupabase() {
 console.log('DATA:', data);
 console.log('ERROR:', error);
 }
-testSupabase();
+// testSupabase();
 
 async function tambahTestUser() {
 const { data, error } = await supabaseClient
@@ -40,7 +40,7 @@ console.log('INSERT DATA:', data);
 console.log('INSERT ERROR:', error);
 }
  
-tambahTestUser();
+// tambahTestUser();
 
 const APP_VERSION = '1.2.1';
 const APP_TABLES = ['communities','users','roles','members','households','announcements','events','eventParticipants','incidents','complaints','volunteers','meetings','documents','income','expenses','payments','receivedPayments','notifications','audit','settings','syncLog'];
