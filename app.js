@@ -32,16 +32,14 @@ async function uploadFile() {
       .from('uploads')
       .upload(fileName, file);
 
-  console.log('UPLOAD DATA:', data);
+console.log('UPLOAD DATA:', data);
 console.error('UPLOAD ERROR:', error);
-
-alert(
-  JSON.stringify(
-    { data, error },
-    null,
-    2
-  )
-);
+ 
+if (error) {
+alert('ERROR: ' + JSON.stringify(error));
+} else {
+alert('SUCCESS: ' + JSON.stringify(data));
+}
 }
  
 // testSupabase();
