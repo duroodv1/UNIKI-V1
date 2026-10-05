@@ -10,36 +10,13 @@ const supabaseUrl = 'https://kfdaakvjkxphomforvft.supabase.co';
 const supabaseKey = 'sb_publishable_Hz1j4amAYKS3H3Vq53ixZQ_L118RzD_';
 
 const supabaseClient = supabase.createClient(
-  supabaseUrl,
-  supabaseKey
+supabaseUrl,
+supabaseKey
 );
-
+ 
 console.log('Supabase Connected');
-async function testSupabase() {
-  const { data, error } = await supabaseClient
-    .from('profiles')
-    .select('*');
-
-console.log('DATA:', data);
-console.log('ERROR:', error);
-}
+ 
 // testSupabase();
-
-async function tambahTestUser() {
-const { data, error } = await supabaseClient
-.from('profiles')
-.insert([
-{
-name: 'Ali',
-email: 'ali@gmail.com',
-phone: '0123456789'
-}
-]);
- 
-console.log('INSERT DATA:', data);
-console.log('INSERT ERROR:', error);
-}
- 
 // tambahTestUser();
 
 const APP_VERSION = '1.2.1';
