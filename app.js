@@ -17,8 +17,6 @@ const supabaseClient = supabase.createClient(
 
 console.log('Supabase Connected');
 
-async function testSupabase() {
-
   const { data, error } = await supabaseClient
     .from('members')
     .select('*');
