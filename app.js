@@ -184,7 +184,12 @@ class LocalDB {
   open(){return new Promise((resolve,reject)=>{const req=indexedDB.open('uniki-v1-local',2);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains('records')){const s=d.createObjectStore('records',{keyPath:'id'});s.createIndex('table','table',{unique:false});s.createIndex('updatedAt','updatedAt',{unique:false});}if(!d.objectStoreNames.contains('backups'))d.createObjectStore('backups',{keyPath:'id'});};req.onsuccess=()=>{this.db=req.result;resolve(this);};req.onerror=()=>reject(req.error||new Error('Pangkalan data setempat tidak dapat dibuka.'));});}
   all(table){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readonly');const req=table?tx.objectStore('records').index('table').getAll(table):tx.objectStore('records').getAll();req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error);});}
   get(table,id){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readonly');const req=tx.objectStore('records').get(id);req.onsuccess=()=>resolve(req.result?.table===table?req.result:null);req.onerror=()=>reject(req.error);});}
-put(table,data){
+  put(table,data){
+    
+  console.log('PUT DIPANGGIL');
+  console.log('TABLE=', table);
+  console.log('DATA=', data);
+
   return new Promise((resolve,reject)=>{
 
     const tx=this.db.transaction('records','readwrite');
