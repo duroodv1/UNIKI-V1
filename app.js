@@ -28,9 +28,7 @@ async function testSupabase() {
 
 }
 
-testSupabase();
-
-// uploadFile()
+tambahTestMember();
 
 async function uploadFile() {
 
