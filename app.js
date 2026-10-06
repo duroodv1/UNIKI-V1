@@ -185,6 +185,10 @@ class LocalDB {
   all(table){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readonly');const req=table?tx.objectStore('records').index('table').getAll(table):tx.objectStore('records').getAll();req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error);});}
   get(table,id){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readonly');const req=tx.objectStore('records').get(id);req.onsuccess=()=>resolve(req.result?.table===table?req.result:null);req.onerror=()=>reject(req.error);});}
   put(table,data){
+
+  alert('PUT DIPANGGIL: ' + table);
+
+  return new Promise((resolve,reject)=>{
     
   console.log('PUT DIPANGGIL');
   console.log('TABLE=', table);
