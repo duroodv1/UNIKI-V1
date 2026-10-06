@@ -954,6 +954,11 @@ async function serviceSave(module,data,{passwordVerified=false}={}){
   let changeSummary=auditChangeSummary(module,existing,record,!existing);if(record.receiptNo&&!existing?.receiptNo)changeSummary+=` · Resit rasmi dijana: ${record.receiptNo}`;
   await maybeAutoSnapshot();
   const saved=await db.put(module,record);
+
+  console.log('MODULE:', module);
+  console.log('RECORD:', record);
+  console.log('SAVED:', saved);
+  
   await writeAudit(existing?'Edit':'Tambah',module,saved.id,saved.name||saved.title||saved.referenceNo||saved.caseNo||saved.payer||'Rekod',changeSummary);
   return saved;
 }
