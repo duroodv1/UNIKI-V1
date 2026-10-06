@@ -203,6 +203,31 @@ class LocalDB {
 if (SUPABASE_TABLES.includes(table)) {
 
   console.log('SYNC TABLE:', table);
+  console.log('SYNC DATA:', value);
+
+  supabaseClient
+    .from(table)
+    .insert([value])
+    .then(({ error }) => {
+
+      if (error) {
+        console.error(
+          'SUPABASE ERROR:',
+          table,
+          error
+        );
+      } else {
+        console.log(
+          'SUPABASE SYNC OK:',
+          table
+        );
+      }
+
+    });
+
+}
+
+  console.log('SYNC TABLE:', table);
 
   supabaseClient
     .from(table)
