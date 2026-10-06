@@ -42,7 +42,9 @@ async function tambahTestMember() {
     ])
     .select();
 
-  console.log('FULL RESULT:', result);
+  console.log(
+    JSON.stringify(result, null, 2)
+  );
 
 }
 
