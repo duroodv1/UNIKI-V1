@@ -36,18 +36,15 @@ async function tambahTestMember() {
     .from('members')
     .insert([
       {
-        full_name: 'Ali Test',
-        phone: '0123456789'
+        name: 'Ali Test',
+        phone: '0123456789',
+        address: 'Terengganu'
       }
     ])
     .select();
 
-  console.log('DATA INSERT:', data);
-
-  if (error) {
-    console.error('ERROR INSERT:', error.message);
-    console.error('ERROR FULL:', error);
-  }
+  console.log('INSERT DATA:', data);
+  console.log('INSERT ERROR:', error);
 
 }
 
