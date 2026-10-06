@@ -28,6 +28,25 @@ async function testSupabase() {
 
 }
 
+testSupabase();
+ 
+async function tambahTestMember() {
+ 
+const { data, error } = await supabaseClient
+.from('members')
+.insert([
+{
+full_name: 'Ali Test',
+phone: '0123456789'
+}
+])
+.select();
+ 
+console.log('INSERT DATA:', data);
+console.log('INSERT ERROR:', error);
+ 
+}
+
 tambahTestMember();
 
 async function uploadFile() {
