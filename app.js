@@ -184,26 +184,45 @@ class LocalDB {
   open(){return new Promise((resolve,reject)=>{const req=indexedDB.open('uniki-v1-local',2);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains('records')){const s=d.createObjectStore('records',{keyPath:'id'});s.createIndex('table','table',{unique:false});s.createIndex('updatedAt','updatedAt',{unique:false});}if(!d.objectStoreNames.contains('backups'))d.createObjectStore('backups',{keyPath:'id'});};req.onsuccess=()=>{this.db=req.result;resolve(this);};req.onerror=()=>reject(req.error||new Error('Pangkalan data setempat tidak dapat dibuka.'));});}
   all(table){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readonly');const req=table?tx.objectStore('records').index('table').getAll(table):tx.objectStore('records').getAll();req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error);});}
   get(table,id){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readonly');const req=tx.objectStore('records').get(id);req.onsuccess=()=>resolve(req.result?.table===table?req.result:null);req.onerror=()=>reject(req.error);});}
-  put(table,data){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readwrite');const value={...data,id:data.id||uid(),table,updatedAt:new Date().toISOString(),createdAt:data.createdAt||new Date().toISOString()};// Sync Members ke Supabase
-if(table === 'members'){
- 
-supabaseClient
-.from('members')
-.upsert({
-id: value.id,
-name: value.name || '',
-phone: value.phone || '',
-address: value.address || ''
-})
-.then(({error})=>{
- 
-if(error){
-console.error('SUPABASE MEMBERS ERROR:', error);
-}else{
-console.log('SUPABASE MEMBERS SYNC OK');
-}
- 
-});
+  put(table,data){return new Promise((resolve,reject)=>{const tx=this.db.transaction('records','readwrite');const value={...data,id:data.id||uid(),table,updatedAt:new Date().toISOString(),createdAt:data.createdAt||new Date().toISOString()};const SUPABASE_TABLES = [
+  'members',
+  'households',
+  'announcements',
+  'events',
+  'incidents',
+  'complaints',
+  'volunteers',
+  'meetings',
+  'documents',
+  'income',
+  'expenses',
+  'payments',
+  'receivedPayments'
+];
+
+if (SUPABASE_TABLES.includes(table)) {
+
+  console.log('SYNC TABLE:', table);
+
+  supabaseClient
+    .from(table)
+    .insert([value])
+    .then(({ error }) => {
+
+      if (error) {
+        console.error(
+          'SUPABASE ERROR:',
+          table,
+          error
+        );
+      } else {
+        console.log(
+          'SUPABASE SYNC OK:',
+          table
+        );
+      }
+
+    });
  
 }
  
