@@ -32,7 +32,7 @@ testSupabase();
  
 async function tambahTestMember() {
 
-  const result = await supabaseClient
+  const { data, error } = await supabaseClient
     .from('members')
     .insert([
       {
@@ -42,9 +42,12 @@ async function tambahTestMember() {
     ])
     .select();
 
-  console.log(
-    JSON.stringify(result, null, 2)
-  );
+  console.log('DATA INSERT:', data);
+
+  if (error) {
+    console.error('ERROR INSERT:', error.message);
+    console.error('ERROR FULL:', error);
+  }
 
 }
 
