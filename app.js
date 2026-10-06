@@ -220,13 +220,7 @@ class LocalDB {
 
     if (SUPABASE_TABLES.includes(table)) {
 
-      console.log('SYNC TABLE:', table);
       console.log('SYNC DATA:', value);
-
-      supabaseClient
-        .from(table)
-        .insert([value])
-        .then(({ error }) => {
 
           if (error) {
             console.error(
@@ -953,14 +947,60 @@ async function serviceSave(module,data,{passwordVerified=false}={}){
   else{record.createdBy=record.createdBy||currentUser.id;record.createdByName=record.createdByName||currentUser.name;}
   let changeSummary=auditChangeSummary(module,existing,record,!existing);if(record.receiptNo&&!existing?.receiptNo)changeSummary+=` · Resit rasmi dijana: ${record.receiptNo}`;
   await maybeAutoSnapshot();
-  const saved=await db.put(module,record);
 
-  console.log('MODULE:', module);
-  console.log('RECORD:', record);
-  console.log('SAVED:', saved);
-  
-  await writeAudit(existing?'Edit':'Tambah',module,saved.id,saved.name||saved.title||saved.referenceNo||saved.caseNo||saved.payer||'Rekod',changeSummary);
-  return saved;
+const saved = await db.put(module,record);
+
+// SYNC SUPABASE
+const SUPABASE_TABLES = [
+  'members',
+  'households',
+  'announcements',
+  'events',
+  'incidents',
+  'complaints',
+  'volunteers',
+  'meetings',
+  'documents',
+  'income',
+  'expenses',
+  'payments',
+  'receivedPayments'
+];
+
+if (SUPABASE_TABLES.includes(module)) {
+
+  const { error } = await supabaseClient
+    .from(module)
+    .upsert(saved);
+
+  if (error) {
+    console.error(
+      'SUPABASE ERROR:',
+      module,
+      error
+    );
+  } else {
+    console.log(
+      'SUPABASE SYNC OK:',
+      module
+    );
+  }
+
+}
+
+await writeAudit(
+  existing?'Edit':'Tambah',
+  module,
+  saved.id,
+  saved.name||saved.title||
+  saved.referenceNo||
+  saved.caseNo||
+  saved.payer||
+  'Rekod',
+  changeSummary
+);
+
+return saved;
 }
 async function serviceDelete(module,id,password){
   guard(module,'view');guard(module,'delete');await verifyCurrentUserPassword(password);const row=await db.get(module,id);if(!row)throw new Error('Rekod tidak ditemui.');
