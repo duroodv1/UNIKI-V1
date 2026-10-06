@@ -11,12 +11,12 @@ const supabaseKey =
 'sb_publishable_D36bZZ-JVJ8W_rSQ_P9IqA_Fni4FoeJ';
 
 const supabaseClient = supabase.createClient(
-supabaseUrl,
-supabaseKey
+  supabaseUrl,
+  supabaseKey
 );
 
 console.log('Supabase Connected');
- 
+
 async function testSupabase() {
 
   const { data, error } = await supabaseClient
@@ -37,8 +37,38 @@ async function uploadFile() {
 }
 
 const APP_VERSION = '1.2.1';
-const APP_TABLES = ['communities','users','roles','members','households','announcements','events','eventParticipants','incidents','complaints','volunteers','meetings','documents','income','expenses','payments','receivedPayments','notifications','audit','settings','syncLog'];
-const FINANCE_TABLES = ['income','expenses','payments','receivedPayments'];
+
+const APP_TABLES = [
+  'communities',
+  'users',
+  'roles',
+  'members',
+  'households',
+  'announcements',
+  'events',
+  'eventParticipants',
+  'incidents',
+  'complaints',
+  'volunteers',
+  'meetings',
+  'documents',
+  'income',
+  'expenses',
+  'payments',
+  'receivedPayments',
+  'notifications',
+  'audit',
+  'settings',
+  'syncLog'
+];
+
+const FINANCE_TABLES = [
+  'income',
+  'expenses',
+  'payments',
+  'receivedPayments'
+];
+
 const PAGE_META = {
   dashboard:['Ringkasan komuniti','Gambaran pantas komuniti, operasi dan kewangan.'],
   members:['Ahli komuniti','Urus profil, kategori dan status ahli.'],
