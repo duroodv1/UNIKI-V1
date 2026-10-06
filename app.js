@@ -5,50 +5,35 @@
 
 // SUPABASE
 
-const supabaseUrl = 'https://kfdaakvjkxphomforvft.supabase.co';
-
-const supabaseKey = 'sb_publishable_Hz1j4amAYKS3H3Vq53ixZQ_L118RzD_';
+const supabaseUrl = 'https://mfrctxuqfqupizuyrvyz.supabase.co';
+const supabaseKey = 'sb_publishable_D36bZZ-JVJ8W_rSQ_P9IqA_Fni4FoeJ';
 
 const supabaseClient = supabase.createClient(
 supabaseUrl,
 supabaseKey
 );
- 
+
 console.log('Supabase Connected');
+ 
+async function testSupabase() {
+ 
+const { data, error } = await supabaseClient
+.from('members')
+.select('*');
+ 
+console.log('DATA:', data);
+console.log('ERROR:', error);
+ 
+}
+ 
+testSupabase();
+ 
+// uploadFile()
+ 
 async function uploadFile() {
-
-  alert('uploadFile dipanggil');
-
-  const file =
-    document.getElementById('fileInput').files[0];
-
-  if (!file) {
-    alert('Pilih fail dahulu');
-    return;
-  }
-
-  const fileName =
-    `${Date.now()}-${file.name}`;
-
-  const { data, error } =
-    await supabaseClient.storage
-      .from('uploads')
-      .upload(fileName, file);
-
-  console.log('UPLOAD DATA:', data);
-  console.error('UPLOAD ERROR:', error);
-
-  if (error) {
-    alert('ERROR: ' + JSON.stringify(error));
-  } else {
-    alert('SUCCESS: ' + JSON.stringify(data));
-    }
-  }
-  
-  } // tutup fungsi uploadFile
-
-// testSupabase();
-// tambahTestUser();
+ 
+...
+}
 
 const APP_VERSION = '1.2.1';
 const APP_TABLES = ['communities','users','roles','members','households','announcements','events','eventParticipants','incidents','complaints','volunteers','meetings','documents','income','expenses','payments','receivedPayments','notifications','audit','settings','syncLog'];
